@@ -1,0 +1,15 @@
+.ingredients_category_section,
+.items {
+	display: flex;
+}
+
+.ingredients_category_section {
+	flex-direction: column;
+	width: 600px;
+}
+
+.items {
+	flex-wrap: wrap;
+	gap: 32px 24px;
+	margin: 0;
+}

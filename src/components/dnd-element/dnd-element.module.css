@@ -1,0 +1,10 @@
+.dnd_element {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.dnd_element > svg {
+	position: absolute;
+	left: 0;
+}
