@@ -1,7 +1,23 @@
-.burger_constructor {
+.burger_constructor,
+.scroll_area {
 	display: flex;
 	flex-direction: column;
+}
+
+.scroll_area > *:last-child {
+	margin-bottom: 0;
+}
+
+.burger_constructor {
 	width: 600px;
-	padding-bottom: 20px;
 	color: var(--text-primary-color);
+}
+
+.scroll_area {
+	overflow: hidden scroll;
+}
+
+.sum_wrapper {
+	display: inline-flex;
+	justify-content: flex-end;
 }
