@@ -16,8 +16,8 @@ export const App = (): React.JSX.Element => {
 			try {
 				setIsLoading(true);
 				const response: Response = await fetch(`${API_URL}/ingredients`);
-				const { data }: TGetIngredientsDto = await response.json();
-				if (data?.length > 0) {
+				const { data, success }: TGetIngredientsDto = await response.json();
+				if (success && data?.length > 0) {
 					setIngredients(data);
 					setIsError(false);
 				} else {
