@@ -1,0 +1,17 @@
+.ingredient_details {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	max-width: 520px;
+	text-align: center;
+}
+
+.image {
+	min-height: 240px;
+}
+
+.nutrition_values {
+	display: inline-flex;
+	justify-content: space-between;
+}

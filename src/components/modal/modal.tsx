@@ -1,0 +1,52 @@
+import { ModalOverlay } from '@components/modal-overlay/modal-overlay.tsx';
+import React, { PropsWithChildren, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import styles from './modal.module.css';
+import { ModalHeader } from '@components/modal/modal-header/modal-header.tsx';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+
+type TModalProps = {
+	title?: string;
+	closeHandler: () => void;
+} & PropsWithChildren;
+
+export function Modal({
+	title,
+	children,
+	closeHandler,
+}: TModalProps): React.JSX.Element | null {
+	useEffect(() => {
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.key === 'Escape') {
+				closeHandler();
+			}
+		};
+		document.addEventListener('keydown', handleKeyDown);
+		return () => {
+			document.removeEventListener('keydown', handleKeyDown);
+		};
+	}, [closeHandler]);
+
+	const container: HTMLElement | null = document.getElementById(
+		'modals-portal-container'
+	);
+	if (!container) return null;
+
+	return createPortal(
+		<div className={styles.modal}>
+			<div
+				className={`${styles.modal_wrapper} ${title ? 'pt-10 pb-15 pl-10 pr-10' : 'pt-30 pb-30 pl-25 pr-25'}`}>
+				{title ? (
+					<ModalHeader title={title} onClose={closeHandler} />
+				) : (
+					<button className={styles.close_button} onClick={closeHandler}>
+						<CloseIcon type='primary' />
+					</button>
+				)}
+				{children}
+			</div>
+			<ModalOverlay onClose={closeHandler} />
+		</div>,
+		container
+	);
+}
