@@ -17,3 +17,17 @@ export type TGetIngredientsDto = {
 	success: boolean;
 	data: TIngredient[];
 };
+
+export type TSendOrderArgs = {
+	ingredients: string[];
+};
+
+export type TOrder = {
+	number: number;
+};
+
+export type TSendOrderDto = {
+	success: boolean;
+	name: string;
+	order: TOrder;
+};
