@@ -1,40 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './app.module.css';
 import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients.tsx';
 import { BurgerConstructor } from '@components/burger-contructor/burger-constructor.tsx';
 import { AppHeader } from '@components/app-header/app-header.tsx';
-import { TGetIngredientsDto, TIngredient } from '@utils/types.ts';
-import { API_URL } from '@utils/constants.ts';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIngredients } from '@/services/actions/app';
+import { AppDispatch, RootState } from '@/main';
+import { Preloader } from '../preloader/preloader';
 
 export const App = (): React.JSX.Element => {
-	const [ingredients, setIngredients] = useState<TIngredient[]>([]);
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [isError, setIsError] = useState<boolean>(false);
+	const dispatch = useDispatch<AppDispatch>();
+	const { ingredients, ingredientsRequest, ingredientsRequestError } =
+		useSelector((state: RootState) => state.app);
 
 	useEffect(() => {
-		const loadData = async () => {
-			try {
-				setIsLoading(true);
-				const response: Response = await fetch(`${API_URL}/ingredients`);
-				if (!response.ok) {
-					setIsError(true);
-					return;
-				}
-				const { data, success }: TGetIngredientsDto = await response.json();
-				if (success && data?.length > 0) {
-					setIngredients(data);
-					setIsError(false);
-				} else {
-					setIsError(true);
-				}
-			} catch {
-				setIsError(true);
-			} finally {
-				setIsLoading(false);
-			}
-		};
-		void loadData();
-	}, []);
+		dispatch(getIngredients());
+	}, [dispatch]);
 
 	return (
 		<div className={styles.app}>
@@ -44,13 +27,13 @@ export const App = (): React.JSX.Element => {
 				Соберите бургер
 			</h1>
 			<main className={`${styles.main} text_type_main-default pl-5 pr-5 pb-10`}>
-				{isLoading ? <p>Загрузка данных...</p> : null}
-				{isError ? <p>Ошибка получения данных</p> : null}
+				{ingredientsRequest ? <Preloader /> : null}
+				{ingredientsRequestError ? <p>Ошибка получения данных</p> : null}
 				{ingredients.length > 0 ? (
-					<>
-						<BurgerIngredients ingredients={ingredients} />
-						<BurgerConstructor ingredients={ingredients} />
-					</>
+					<DndProvider backend={HTML5Backend}>
+						<BurgerIngredients />
+						<BurgerConstructor />
+					</DndProvider>
 				) : null}
 			</main>
 		</div>
