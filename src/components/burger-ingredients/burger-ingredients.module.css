@@ -15,5 +15,6 @@
 }
 
 .main {
+	position: relative;
 	overflow: hidden scroll;
 }

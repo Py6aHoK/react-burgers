@@ -31,7 +31,7 @@ export const App = (): React.JSX.Element => {
 				{ingredientsRequestError ? <p>Ошибка получения данных</p> : null}
 				{ingredients.length > 0 ? (
 					<DndProvider backend={HTML5Backend}>
-						<BurgerIngredients ingredients={ingredients} />
+						<BurgerIngredients />
 						<BurgerConstructor />
 					</DndProvider>
 				) : null}

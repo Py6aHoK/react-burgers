@@ -4,6 +4,7 @@ import {
 	ADD_INGREDIENT,
 	DELETE_INGREDIENT,
 	SWAP_ITEMS,
+	RESET,
 } from '../actions/composer';
 
 const initialState = {
@@ -48,6 +49,9 @@ export const composerReducer = (
 				...state,
 				fillingIngredients: [...action.newarr],
 			};
+		}
+		case RESET: {
+			return initialState;
 		}
 		default: {
 			return state;

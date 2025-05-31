@@ -1,6 +1,7 @@
 import { AppDispatch } from '@/main';
 import { sendOrderRequest } from '@/utils/network';
 import { TSendOrderDto, TSendOrderArgs } from '@/utils/types';
+import { RESET } from './composer';
 
 export const SEND_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const SEND_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
@@ -18,6 +19,7 @@ export const sendOrder =
 			if (success && order) {
 				dispatch({ type: SEND_ORDER_SUCCESS, order });
 				dispatch({ type: OPEN_ORDER_MODAL });
+				dispatch({ type: RESET });
 			} else {
 				dispatch({ type: SEND_ORDER_ERROR });
 			}

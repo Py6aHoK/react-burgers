@@ -10,7 +10,7 @@ import { useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	ADD_BUN,
-	ADD_INGREDIENT,
+	addIngridient,
 	SWAP_ITEMS,
 } from '@/services/actions/composer';
 import { CLOSE_ORDER_MODAL, sendOrder } from '@/services/actions/order';
@@ -36,7 +36,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
 				dispatch({ type: DECREASE_COUNTER, itemId: bun });
 			}
 		} else {
-			dispatch({ type: ADD_INGREDIENT, ingredient: item });
+			dispatch(addIngridient(item));
 		}
 
 		dispatch({ type: INCREASE_COUNTER, itemId: item._id });
@@ -97,7 +97,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
 				<div className={`${styles.scroll_area} custom-scroll`}>
 					{fillingIngredients?.map((item: TIngredient, index: number) => (
 						<DndConstructorElement
-							key={`${item._id}_${index}`}
+							key={item.uuid}
 							index={index}
 							className='mb-4'
 							price={item.price}

@@ -11,15 +11,13 @@ import {
 } from '@/services/actions/tabs';
 import { RootState } from '@/main';
 
-type TBurgerIngredientsProps = {
-	ingredients: TIngredient[];
-};
-
 type TCategory = Record<string, TIngredient[]>;
 
-export const BurgerIngredients = ({
-	ingredients,
-}: TBurgerIngredientsProps): React.JSX.Element => {
+export const BurgerIngredients = (): React.JSX.Element => {
+	const { isBunsActive, isMainActive, isSauceActive } = useSelector(
+		(state: RootState) => state.tabs
+	);
+	const { ingredients } = useSelector((state: RootState) => state.app);
 	const categories: TCategory = ingredients.reduce<
 		Record<string, TIngredient[]>
 	>((acc: TCategory, ingredient: TIngredient) => {
@@ -31,10 +29,6 @@ export const BurgerIngredients = ({
 	const bunsRef: Ref<HTMLElement> = useRef<HTMLElement>(null);
 	const mainsRef: Ref<HTMLElement> = useRef<HTMLElement>(null);
 	const saucesRef: Ref<HTMLElement> = useRef<HTMLElement>(null);
-
-	const { isBunsActive, isMainActive, isSauceActive } = useSelector(
-		(state: RootState) => state.tabs
-	);
 
 	const onScroll = useCallback(() => {
 		const scrollY = scrollRef.current?.getBoundingClientRect().y;
@@ -115,11 +109,7 @@ export const BurgerIngredients = ({
 					</Tab>
 				</ul>
 			</nav>
-			<main
-				id='ingredients'
-				ref={scrollRef}
-				className={`${styles.main} pt-10`}
-				style={{ position: 'relative' }}>
+			<main id='ingredients' ref={scrollRef} className={`${styles.main} pt-10`}>
 				<IngredientsCategorySection
 					ref={bunsRef}
 					name='Булки'
