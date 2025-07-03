@@ -5,11 +5,11 @@ type TModalOverlayProps = {
 	onClose: () => void;
 };
 
-export function ModalOverlay({
+export const ModalOverlay = ({
 	onClose,
-}: TModalOverlayProps): React.JSX.Element {
+}: TModalOverlayProps): React.JSX.Element => {
 	return (
 		// eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
 		<div onClick={onClose} className={styles.modal_overlay} />
 	);
-}
+};

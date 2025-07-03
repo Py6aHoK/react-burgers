@@ -1,42 +1,48 @@
 import React, { useEffect } from 'react';
-import styles from './app.module.css';
-import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients.tsx';
-import { BurgerConstructor } from '@components/burger-contructor/burger-constructor.tsx';
 import { AppHeader } from '@components/app-header/app-header.tsx';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ProfilePage } from '@/pages/profile/profile';
+import { RegisterPage } from '@/pages/register/register';
+import { ForgotPasswordPage } from '@/pages/forgot-password/forgot-password';
+import { ResetPasswordPage } from '@/pages/reset-password/reset-password';
+import { NotFound404 } from '@/pages/not-found-404/not-found-404';
+import { LoginPage } from '@/pages/login/login';
+import { HomePage } from '@/pages/home/home';
+import { ProtectedRouteElement } from '../protected-route-element/protected-route-element';
+import { IngredientPage } from '@/pages/ingredients/ingredients';
+import { ProfileMain } from '@/components/profile-main/profile-main';
+import { OrdersPage } from '../orders/orders';
+import { useAppDispatch } from '@/utils/hooks';
 import { getIngredients } from '@/services/actions/app';
-import { AppDispatch, RootState } from '@/main';
-import { Preloader } from '../preloader/preloader';
+import { AppDispatch } from '@/utils/types';
 
 export const App = (): React.JSX.Element => {
-	const dispatch = useDispatch<AppDispatch>();
-	const { ingredients, ingredientsRequest, ingredientsRequestError } =
-		useSelector((state: RootState) => state.app);
+	const dispatch: AppDispatch = useAppDispatch();
 
 	useEffect(() => {
 		dispatch(getIngredients());
 	}, [dispatch]);
 
 	return (
-		<div className={styles.app}>
+		<BrowserRouter>
 			<AppHeader />
-			<h1
-				className={`${styles.title} text text_type_main-large mt-10 mb-5 pl-5`}>
-				Соберите бургер
-			</h1>
-			<main className={`${styles.main} text_type_main-default pl-5 pr-5 pb-10`}>
-				{ingredientsRequest ? <Preloader /> : null}
-				{ingredientsRequestError ? <p>Ошибка получения данных</p> : null}
-				{ingredients.length > 0 ? (
-					<DndProvider backend={HTML5Backend}>
-						<BurgerIngredients />
-						<BurgerConstructor />
-					</DndProvider>
-				) : null}
-			</main>
-		</div>
+			<Routes>
+				<Route path='/' element={<HomePage />}>
+					<Route path='/ingredients/:id' element={<IngredientPage />} />
+				</Route>
+				<Route path='/login' element={<LoginPage />} />
+				<Route path='/register' element={<RegisterPage />} />
+				<Route path='/forgot-password' element={<ForgotPasswordPage />} />
+				<Route path='/reset-password' element={<ResetPasswordPage />} />
+				<Route
+					path='/profile'
+					element={<ProtectedRouteElement element={<ProfilePage />} />}>
+					<Route path='' element={<ProfileMain />} />
+					<Route path='orders' element={<OrdersPage />} />
+				</Route>
+				<Route path='*' element={<NotFound404 />} />
+			</Routes>
+		</BrowserRouter>
 	);
 };
 

@@ -14,7 +14,7 @@ const initialState = {
 };
 
 function increaseCounter(array: TIngredient[], itemId: string): TIngredient[] {
-	return array.map((item) =>
+	return array.map((item: TIngredient) =>
 		item._id === itemId
 			? { ...item, __v: item.__v + (item.type === 'bun' ? 2 : 1) }
 			: item
@@ -22,7 +22,7 @@ function increaseCounter(array: TIngredient[], itemId: string): TIngredient[] {
 }
 
 function decreaseCounter(array: TIngredient[], itemId: string): TIngredient[] {
-	return array.map((item) =>
+	return array.map((item: TIngredient) =>
 		item._id === itemId
 			? { ...item, __v: item.__v - (item.type === 'bun' ? 2 : 1) }
 			: item

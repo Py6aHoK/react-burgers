@@ -3,11 +3,11 @@ import {
 	ConstructorElement,
 	DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useRef } from 'react';
+import React, { RefObject, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { useDispatch } from 'react-redux';
 import { DELETE_INGREDIENT } from '@/services/actions/composer';
-import { AppDispatch } from '@/main';
+import { useAppDispatch } from '@/utils/hooks';
+import { AppDispatch } from '@/utils/types';
 
 type TDndConstructorElement = {
 	index?: number;
@@ -25,15 +25,15 @@ type DragItem = {
 	index: number;
 };
 
-export function DndConstructorElement(
+export const DndConstructorElement = (
 	props: TDndConstructorElement
-): React.JSX.Element {
+): React.JSX.Element => {
 	const { moveItem, className, type, text, index, ...otherProps } = props;
 	const suffix: string =
 		type === 'top' ? ' (верх)' : type === 'bottom' ? ' (низ)' : '';
 
-	const dispatch = useDispatch<AppDispatch>();
-	const ref = useRef<HTMLDivElement>(null);
+	const dispatch: AppDispatch = useAppDispatch();
+	const ref: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
 
 	const [, drop] = useDrop<DragItem>({
 		accept: 'item',
@@ -64,4 +64,4 @@ export function DndConstructorElement(
 			/>
 		</div>
 	);
-}
+};
