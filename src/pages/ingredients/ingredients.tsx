@@ -46,9 +46,5 @@ export const IngredientPage = (): React.JSX.Element => {
 				</Modal>
 			) : null}
 		</>
-
-		// <div className='flex-center'>
-		// 	{ingredient && <IngredientDetails {...ingredient} />}
-		// </div>
 	);
 };
