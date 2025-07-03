@@ -7,11 +7,11 @@ type TNutritionalValueProps = {
 	className?: string;
 };
 
-export function NutritionalValue({
+export const NutritionalValue = ({
 	name,
 	value,
 	className,
-}: TNutritionalValueProps): React.JSX.Element {
+}: TNutritionalValueProps): React.JSX.Element => {
 	const formatedValue: string = Number.isInteger(value)
 		? value.toString()
 		: value.toFixed(2).replace('.', ',');
@@ -23,4 +23,4 @@ export function NutritionalValue({
 			<span className='text text_type_digits-default'>{formatedValue}</span>
 		</div>
 	);
-}
+};

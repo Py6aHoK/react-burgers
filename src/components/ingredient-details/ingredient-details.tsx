@@ -3,14 +3,14 @@ import React from 'react';
 import { TIngredient } from '@utils/types.ts';
 import { NutritionalValue } from '@components/ingredient-details/nutritional-value/nutritional-value.tsx';
 
-export function IngredientDetails({
+export const IngredientDetails = ({
 	name,
 	image_large,
 	calories,
 	fat,
 	proteins,
 	carbohydrates,
-}: TIngredient): React.JSX.Element {
+}: TIngredient): React.JSX.Element => {
 	return (
 		<div className={styles.ingredient_details}>
 			<img className={`${styles.image} mb-4`} src={image_large} alt={name} />
@@ -27,4 +27,4 @@ export function IngredientDetails({
 			</div>
 		</div>
 	);
-}
+};

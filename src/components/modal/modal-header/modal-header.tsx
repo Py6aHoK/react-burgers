@@ -7,10 +7,10 @@ type TModalHeader = {
 	onClose: () => void;
 };
 
-export function ModalHeader({
+export const ModalHeader = ({
 	title,
 	onClose,
-}: TModalHeader): React.JSX.Element {
+}: TModalHeader): React.JSX.Element => {
 	return (
 		<div className={styles.modal_header}>
 			<span className='text text_type_main-large'>{title}</span>
@@ -19,4 +19,4 @@ export function ModalHeader({
 			</button>
 		</div>
 	);
-}
+};

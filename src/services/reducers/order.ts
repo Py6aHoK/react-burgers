@@ -11,7 +11,7 @@ const initialState = {
 	isModalOpen: false,
 	orderRequest: false,
 	orderRequestError: false,
-	order: 0,
+	order: undefined,
 };
 
 type TOrdersReducerAction = {

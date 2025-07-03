@@ -1,4 +1,4 @@
-import { TIngredient } from '@utils/types.ts';
+import { AppDispatch, TIngredient } from '@utils/types.ts';
 import React, { useCallback, useMemo } from 'react';
 import styles from './burger-constructor.module.css';
 import { DndConstructorElement } from '@components/dnd-element/dnd-element.tsx';
@@ -7,27 +7,25 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Modal } from '@components/modal/modal.tsx';
 import { OrderDetails } from '@components/order-details/order-details.tsx';
 import { useDrop } from 'react-dnd';
-import { useDispatch, useSelector } from 'react-redux';
 import {
 	ADD_BUN,
 	addIngridient,
 	SWAP_ITEMS,
 } from '@/services/actions/composer';
 import { CLOSE_ORDER_MODAL, sendOrder } from '@/services/actions/order';
-import { AppDispatch, RootState } from '@/main';
 import { INCREASE_COUNTER, DECREASE_COUNTER } from '@/services/actions/app';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 
 export const BurgerConstructor = (): React.JSX.Element => {
-	const { fillingIngredients, bun } = useSelector(
-		(state: RootState) => state.composer
-	);
+	const dispatch: AppDispatch = useAppDispatch();
+	const navigate: NavigateFunction = useNavigate();
+	const { isAuthorized } = useAppSelector((state) => state.auth);
+	const { fillingIngredients, bun } = useAppSelector((state) => state.composer);
+	const { isModalOpen, order } = useAppSelector((state) => state.order);
 
-	const { isModalOpen, order } = useSelector((state: RootState) => state.order);
-
-	const dispatch = useDispatch<AppDispatch>();
-
-	const handleDrop = (item: TIngredient) => {
-		const isBun = item.type === 'bun';
+	const handleDrop = (item: TIngredient): void => {
+		const isBun: boolean = item.type === 'bun';
 
 		if (isBun) {
 			dispatch({ type: ADD_BUN, ingredient: item });
@@ -50,6 +48,10 @@ export const BurgerConstructor = (): React.JSX.Element => {
 	});
 
 	const handleSendOrderClick = useCallback(() => {
+		if (!isAuthorized) {
+			navigate('/login');
+			return;
+		}
 		if (!(fillingIngredients.length || bun)) {
 			return;
 		}
@@ -58,24 +60,24 @@ export const BurgerConstructor = (): React.JSX.Element => {
 		);
 		bun && ingredientsIds.push(...[bun._id, bun._id]);
 		dispatch(sendOrder({ ingredients: ingredientsIds }));
-	}, [fillingIngredients, bun]);
+	}, [dispatch, navigate, isAuthorized, fillingIngredients, bun]);
 
-	const handleCloseModal = () => {
+	const handleCloseModal = (): void => {
 		dispatch({ type: CLOSE_ORDER_MODAL });
 	};
 
-	const price = useMemo(() => {
-		const bunPrice = bun?.price ?? 0;
-		const fillingsPrice =
+	const price: number = useMemo(() => {
+		const bunPrice: number = bun?.price ?? 0;
+		const fillingsPrice: number =
 			fillingIngredients?.reduce(
 				(sum: number, item: TIngredient) => sum + item.price,
 				0
 			) ?? 0;
 		return bunPrice * 2 + fillingsPrice;
-	}, [bun, fillingIngredients?.length]);
+	}, [bun, fillingIngredients]);
 
-	const moveItem = (from: number, to: number) => {
-		const updated = [...fillingIngredients];
+	const moveItem = (from: number, to: number): void => {
+		const updated: TIngredient[] = [...fillingIngredients];
 		const [moved] = updated.splice(from, 1);
 		updated.splice(to, 0, moved);
 		dispatch({ type: SWAP_ITEMS, newarr: updated });
@@ -126,7 +128,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
 					</Button>
 				</div>
 			</section>
-			{isModalOpen ? (
+			{order && isModalOpen ? (
 				<Modal closeHandler={handleCloseModal}>
 					<OrderDetails orderId={order.number} />
 				</Modal>

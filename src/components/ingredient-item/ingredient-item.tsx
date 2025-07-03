@@ -10,7 +10,9 @@ type TIngredientItemProps = {
 	onClick?: () => void;
 } & TIngredient;
 
-export function IngredientItem(props: TIngredientItemProps): React.JSX.Element {
+export const IngredientItem = (
+	props: TIngredientItemProps
+): React.JSX.Element => {
 	const { _id, type, name, price, image, count, onClick } = props;
 	const [, dragRef] = useDrag({
 		type: 'ingredient',
@@ -26,4 +28,4 @@ export function IngredientItem(props: TIngredientItemProps): React.JSX.Element {
 			{count ? <Counter count={count} /> : null}
 		</li>
 	);
-}
+};
