@@ -1,4 +1,4 @@
-import { TIngredient } from '@/utils/types';
+import { Nullable, TIngredient } from '@/utils/types';
 import {
 	ADD_BUN,
 	ADD_INGREDIENT,
@@ -7,10 +7,16 @@ import {
 	RESET,
 } from '../actions/composer';
 
-const initialState = {
+const initialState: TComposerReducerState = {
 	fillingIngredients: [],
 	bun: null,
 	price: 0,
+};
+
+type TComposerReducerState = {
+	fillingIngredients: TIngredient[];
+	bun: Nullable<TIngredient>;
+	price: number;
 };
 
 type TComposerReducerAction = {
@@ -23,7 +29,7 @@ type TComposerReducerAction = {
 export const composerReducer = (
 	state = initialState,
 	action: TComposerReducerAction
-) => {
+): TComposerReducerState => {
 	switch (action.type) {
 		case ADD_BUN: {
 			return {

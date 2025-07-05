@@ -16,7 +16,7 @@ export const AppHeader = (): React.JSX.Element => {
 		return '';
 	};
 
-	const activeTab = normalizePath(pathname);
+	const activeTab: string = normalizePath(pathname);
 	const isMainTabActive: boolean = activeTab === '/';
 	const isFeedTabActive: boolean = activeTab === '/feed';
 	const isProfileTabActive: boolean = activeTab === '/profile';

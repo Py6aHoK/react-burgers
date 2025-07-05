@@ -7,7 +7,7 @@ import React, { RefObject, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { DELETE_INGREDIENT } from '@/services/actions/composer';
 import { useAppDispatch } from '@/utils/hooks';
-import { AppDispatch } from '@/utils/types';
+import { AppDispatch, Nullable } from '@/utils/types';
 
 type TDndConstructorElement = {
 	index?: number;
@@ -33,7 +33,7 @@ export const DndConstructorElement = (
 		type === 'top' ? ' (верх)' : type === 'bottom' ? ' (низ)' : '';
 
 	const dispatch: AppDispatch = useAppDispatch();
-	const ref: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
+	const ref: RefObject<HTMLDivElement> = useRef<Nullable<HTMLDivElement>>(null);
 
 	const [, drop] = useDrop<DragItem>({
 		accept: 'item',

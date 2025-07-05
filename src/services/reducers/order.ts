@@ -7,11 +7,18 @@ import {
 	CLOSE_ORDER_MODAL,
 } from '../actions/order';
 
-const initialState = {
+const initialState: TOrderReducerState = {
 	isModalOpen: false,
 	orderRequest: false,
 	orderRequestError: false,
 	order: undefined,
+};
+
+type TOrderReducerState = {
+	isModalOpen: boolean;
+	orderRequest: boolean;
+	orderRequestError: boolean;
+	order?: TOrder;
 };
 
 type TOrdersReducerAction = {
@@ -22,7 +29,7 @@ type TOrdersReducerAction = {
 export const orderReducer = (
 	state = initialState,
 	action: TOrdersReducerAction
-) => {
+): TOrderReducerState => {
 	switch (action.type) {
 		case SEND_ORDER_REQUEST: {
 			return {
