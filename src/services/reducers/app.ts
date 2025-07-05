@@ -7,7 +7,7 @@ import {
 } from '../actions/app';
 import { TIngredient } from '@/utils/types';
 
-const initialState = {
+const initialState: TAppReducerState = {
 	ingredientsRequest: false,
 	ingredientsRequestError: false,
 	ingredients: [],
@@ -29,13 +29,22 @@ function decreaseCounter(array: TIngredient[], itemId: string): TIngredient[] {
 	);
 }
 
+type TAppReducerState = {
+	ingredientsRequest: boolean;
+	ingredientsRequestError: boolean;
+	ingredients: TIngredient[];
+};
+
 type TAppReducerAction = {
 	type: string;
 	itemId: string;
 	ingredients: TIngredient[];
 };
 
-export const appReducer = (state = initialState, action: TAppReducerAction) => {
+export const appReducer = (
+	state = initialState,
+	action: TAppReducerAction
+): TAppReducerState => {
 	switch (action.type) {
 		case GET_INGREDIENTS_REQUEST: {
 			return {

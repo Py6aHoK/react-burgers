@@ -1,4 +1,4 @@
-import React, { Ref, useCallback, useEffect, useRef } from 'react';
+import React, { RefObject, useCallback, useEffect, useRef } from 'react';
 import styles from './burger-ingredients.module.css';
 import { AppDispatch, Nullable, TIngredient } from '@utils/types.ts';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -11,6 +11,10 @@ import {
 import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 
 type TCategory = Record<string, TIngredient[]>;
+type TSectionPosition = {
+	key: string;
+	distance: number;
+};
 
 export const BurgerIngredients = (): React.JSX.Element => {
 	const { isBunsActive, isMainActive, isSauceActive } = useAppSelector(
@@ -24,17 +28,17 @@ export const BurgerIngredients = (): React.JSX.Element => {
 		return acc;
 	}, {});
 	const dispatch: AppDispatch = useAppDispatch();
-	const scrollRef: Ref<HTMLElement> = useRef<Nullable<HTMLElement>>(null);
-	const bunsRef: Ref<HTMLElement> = useRef<Nullable<HTMLElement>>(null);
-	const mainsRef: Ref<HTMLElement> = useRef<Nullable<HTMLElement>>(null);
-	const saucesRef: Ref<HTMLElement> = useRef<Nullable<HTMLElement>>(null);
+	const scrollRef: RefObject<HTMLElement> = useRef<Nullable<HTMLElement>>(null);
+	const bunsRef: RefObject<HTMLElement> = useRef<Nullable<HTMLElement>>(null);
+	const mainsRef: RefObject<HTMLElement> = useRef<Nullable<HTMLElement>>(null);
+	const saucesRef: RefObject<HTMLElement> = useRef<Nullable<HTMLElement>>(null);
 
 	const onScroll = useCallback(() => {
 		const scrollY: number | undefined =
 			scrollRef.current?.getBoundingClientRect().y;
 		if (scrollY === undefined) return;
 
-		const positions = [
+		const positions: TSectionPosition[] = [
 			{ key: 'bun', ref: bunsRef.current },
 			{ key: 'main', ref: mainsRef.current },
 			{ key: 'sauce', ref: saucesRef.current },
@@ -45,7 +49,7 @@ export const BurgerIngredients = (): React.JSX.Element => {
 				: Infinity,
 		}));
 
-		const closest = positions.reduce((min, current) =>
+		const closest: TSectionPosition = positions.reduce((min, current) =>
 			current.distance < min.distance ? current : min
 		);
 

@@ -4,10 +4,16 @@ import {
 	SET_SAUCE_ACTIVE,
 } from '../actions/tabs';
 
-const initialState = {
+const initialState: TTabsReducerState = {
 	isBunsActive: false,
 	isMainActive: false,
 	isSauceActive: false,
+};
+
+type TTabsReducerState = {
+	isBunsActive: boolean;
+	isMainActive: boolean;
+	isSauceActive: boolean;
 };
 
 type TTabsReducerAction = {
@@ -17,7 +23,7 @@ type TTabsReducerAction = {
 export const tabsReducer = (
 	state = initialState,
 	action: TTabsReducerAction
-) => {
+): TTabsReducerState => {
 	switch (action.type) {
 		case SET_BUN_ACTIVE: {
 			return {

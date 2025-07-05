@@ -7,7 +7,7 @@ import {
 	LOGIN_ERROR,
 } from '../actions/auth';
 
-const initialState = {
+const initialState: TAuthReducerState = {
 	isLoginChecked: false,
 	isAuthorized: false,
 	email: '',
@@ -21,10 +21,18 @@ export type TAuthReducerAction = {
 	error?: string;
 };
 
+type TAuthReducerState = {
+	isLoginChecked: boolean;
+	isAuthorized: boolean;
+	email: string;
+	name: string;
+	error?: string;
+};
+
 export const authReducer = (
 	state = initialState,
 	action: TAuthReducerAction
-) => {
+): TAuthReducerState => {
 	switch (action.type) {
 		case LOGIN_REQUEST: {
 			return {

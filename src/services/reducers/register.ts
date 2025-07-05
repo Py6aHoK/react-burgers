@@ -4,7 +4,7 @@ import {
 	USER_REGISTRATION_SUCCESS,
 } from '../actions/register';
 
-const registrationState = {
+const registrationState: TRegistrationReducerState = {
 	registrationRequest: false,
 	registrationRequestFailed: false,
 	email: '',
@@ -12,6 +12,16 @@ const registrationState = {
 	password: '',
 	accessToken: '',
 	error: '',
+};
+
+type TRegistrationReducerState = {
+	registrationRequest: boolean;
+	registrationRequestFailed: boolean;
+	email: string;
+	name: string;
+	password: string;
+	accessToken: string;
+	error: string;
 };
 
 type TRegistrationReducerAction = {
@@ -22,7 +32,7 @@ type TRegistrationReducerAction = {
 export const registrationReducer = (
 	state = registrationState,
 	action: TRegistrationReducerAction
-) => {
+): TRegistrationReducerState => {
 	switch (action.type) {
 		case USER_REGISTRATION_REQUEST: {
 			return {
