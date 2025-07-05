@@ -1,37 +1,37 @@
 import React, { Ref, useCallback, useEffect, useRef } from 'react';
 import styles from './burger-ingredients.module.css';
-import { TIngredient } from '@utils/types.ts';
+import { AppDispatch, Nullable, TIngredient } from '@utils/types.ts';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsCategorySection } from '@components/ingredients-category-section/ingredients-category-section.tsx';
-import { useDispatch, useSelector } from 'react-redux';
 import {
 	SET_BUN_ACTIVE,
 	SET_MAIN_ACTIVE,
 	SET_SAUCE_ACTIVE,
 } from '@/services/actions/tabs';
-import { RootState } from '@/main';
+import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 
 type TCategory = Record<string, TIngredient[]>;
 
 export const BurgerIngredients = (): React.JSX.Element => {
-	const { isBunsActive, isMainActive, isSauceActive } = useSelector(
-		(state: RootState) => state.tabs
+	const { isBunsActive, isMainActive, isSauceActive } = useAppSelector(
+		(state) => state.tabs
 	);
-	const { ingredients } = useSelector((state: RootState) => state.app);
+	const { ingredients } = useAppSelector((state) => state.app);
 	const categories: TCategory = ingredients.reduce<
 		Record<string, TIngredient[]>
 	>((acc: TCategory, ingredient: TIngredient) => {
 		(acc[ingredient.type] ||= []).push(ingredient);
 		return acc;
 	}, {});
-	const dispatch = useDispatch();
-	const scrollRef: Ref<HTMLElement> = useRef<HTMLElement>(null);
-	const bunsRef: Ref<HTMLElement> = useRef<HTMLElement>(null);
-	const mainsRef: Ref<HTMLElement> = useRef<HTMLElement>(null);
-	const saucesRef: Ref<HTMLElement> = useRef<HTMLElement>(null);
+	const dispatch: AppDispatch = useAppDispatch();
+	const scrollRef: Ref<HTMLElement> = useRef<Nullable<HTMLElement>>(null);
+	const bunsRef: Ref<HTMLElement> = useRef<Nullable<HTMLElement>>(null);
+	const mainsRef: Ref<HTMLElement> = useRef<Nullable<HTMLElement>>(null);
+	const saucesRef: Ref<HTMLElement> = useRef<Nullable<HTMLElement>>(null);
 
 	const onScroll = useCallback(() => {
-		const scrollY = scrollRef.current?.getBoundingClientRect().y;
+		const scrollY: number | undefined =
+			scrollRef.current?.getBoundingClientRect().y;
 		if (scrollY === undefined) return;
 
 		const positions = [
@@ -66,12 +66,13 @@ export const BurgerIngredients = (): React.JSX.Element => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		const scrollSection = document.querySelector('#ingredients');
+		const scrollSection: Nullable<Element> =
+			document.querySelector('#ingredients');
 		scrollSection?.addEventListener('scroll', onScroll);
 		return () => {
 			scrollSection?.removeEventListener('scroll', onScroll);
 		};
-	}, []);
+	}, [onScroll]);
 
 	return (
 		<section className={styles.burger_ingredients}>

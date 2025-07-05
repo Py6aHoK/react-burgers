@@ -4,6 +4,9 @@ import { ingredientInfoReducer } from './ingredientInfo';
 import { appReducer } from './app';
 import { orderReducer } from './order';
 import { tabsReducer } from './tabs';
+import { authReducer } from './auth';
+import { passwordResetReducer } from './passwordReset';
+import { registrationReducer } from './register';
 
 export const rootReducer = combineReducers({
 	composer: composerReducer,
@@ -11,4 +14,7 @@ export const rootReducer = combineReducers({
 	app: appReducer,
 	order: orderReducer,
 	tabs: tabsReducer,
+	auth: authReducer,
+	passwordReset: passwordResetReducer,
+	registration: registrationReducer,
 });

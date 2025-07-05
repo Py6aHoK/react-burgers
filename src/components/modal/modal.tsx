@@ -4,17 +4,18 @@ import { createPortal } from 'react-dom';
 import styles from './modal.module.css';
 import { ModalHeader } from '@components/modal/modal-header/modal-header.tsx';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Nullable } from '@/utils/types';
 
 type TModalProps = {
 	title?: string;
 	closeHandler: () => void;
 } & PropsWithChildren;
 
-export function Modal({
+export const Modal = ({
 	title,
 	children,
 	closeHandler,
-}: TModalProps): React.JSX.Element | null {
+}: TModalProps): Nullable<React.JSX.Element> => {
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			if (event.key === 'Escape') {
@@ -27,9 +28,10 @@ export function Modal({
 		};
 	}, [closeHandler]);
 
-	const container: HTMLElement | null = document.getElementById(
+	const container: Nullable<HTMLElement> = document.getElementById(
 		'modals-portal-container'
 	);
+
 	if (!container) return null;
 
 	return createPortal(
@@ -49,4 +51,4 @@ export function Modal({
 		</div>,
 		container
 	);
-}
+};

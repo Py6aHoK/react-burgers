@@ -7,15 +7,15 @@ type TPriceProps = {
 	size?: 'default' | 'medium';
 } & PropsWithChildren;
 
-export function Price({
+export const Price = ({
 	children,
 	size = 'default',
 	className,
-}: TPriceProps): React.JSX.Element {
+}: TPriceProps): React.JSX.Element => {
 	return (
 		<div
 			className={`text ${styles.price} ${styles[size]} text_type_digits-${size} ${className} `}>
 			{children} <CurrencyIcon className='ml-2' type='primary' />
 		</div>
 	);
-}
+};

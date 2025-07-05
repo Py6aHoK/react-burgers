@@ -3,12 +3,12 @@ import styles from './order-details.module.css';
 import React from 'react';
 
 type TOrderDetailsProps = {
-	orderId: string;
+	orderId: number;
 };
 
-export function OrderDetails({
+export const OrderDetails = ({
 	orderId,
-}: TOrderDetailsProps): React.JSX.Element {
+}: TOrderDetailsProps): React.JSX.Element => {
 	const orderStatusText: string = 'Ваш заказ начали готовить';
 
 	return (
@@ -22,4 +22,4 @@ export function OrderDetails({
 			</span>
 		</div>
 	);
-}
+};
