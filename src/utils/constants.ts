@@ -8,9 +8,11 @@ export const USER_ENPOINT: string = '/auth/user';
 export const LOGIN_ENPOINT: string = '/auth/login';
 export const LOGOUT_ENPOINT: string = '/auth/logout';
 export const TOKEN_ENPOINT: string = '/auth/token';
+export const WEB_SOCKET_URL: string = 'wss://norma.nomoreparties.space/orders';
 
 export enum HTTPMethods {
 	GET = 'GET',
 	POST = 'POST',
 	PATCH = 'PATCH',
 }
+export const MAX_ROWS_PER_BLOCK: number = 10;

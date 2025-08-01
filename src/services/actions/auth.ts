@@ -19,15 +19,15 @@ import {
 	TUpdateUserParams,
 } from '@/utils/types';
 
-export const LOGIN: string = 'LOGIN';
-export const LOGIN_REQUEST: string = 'LOGIN_REQUEST';
-export const LOGIN_ERROR: string = 'LOGIN_REQUEST_ERROR';
-export const UPDATE_USER_REQUEST: string = 'UPDATE_USER_REQUEST';
-export const UPDATE_USER_SUCCESS: string = 'UPDATE_USER_SUCCESS';
-export const UPDATE_USER_ERROR: string = 'UPDATE_USER_ERROR';
-export const LOGOUT: string = 'LOGOUT';
-export const LOGOUT_REQUEST: string = 'LOGOUT_REQUEST';
-export const LOGOUT_ERROR: string = 'LOGOUT_ERROR';
+export const LOGIN = 'LOGIN' as const;
+export const LOGIN_REQUEST = 'LOGIN_REQUEST' as const;
+export const LOGIN_ERROR = 'LOGIN_REQUEST_ERROR' as const;
+export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST' as const;
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS' as const;
+export const UPDATE_USER_ERROR = 'UPDATE_USER_ERROR' as const;
+export const LOGOUT = 'LOGOUT' as const;
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST' as const;
+export const LOGOUT_ERROR = 'LOGOUT_ERROR' as const;
 
 export function getUser(): TDispatchPropmiseVoid {
 	return async function (dispatch: AppDispatch) {

@@ -7,6 +7,8 @@ import { tabsReducer } from './tabs';
 import { authReducer } from './auth';
 import { passwordResetReducer } from './passwordReset';
 import { registrationReducer } from './register';
+import { socketReducer } from './socket';
+import { socketPersonalReducer } from './socketPersonal';
 
 export const rootReducer = combineReducers({
 	composer: composerReducer,
@@ -17,4 +19,6 @@ export const rootReducer = combineReducers({
 	auth: authReducer,
 	passwordReset: passwordResetReducer,
 	registration: registrationReducer,
+	socket: socketReducer,
+	socketPersonal: socketPersonalReducer,
 });

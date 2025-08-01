@@ -5,6 +5,10 @@ import {
 	LOGOUT,
 	UPDATE_USER_SUCCESS,
 	LOGIN_ERROR,
+	UPDATE_USER_REQUEST,
+	UPDATE_USER_ERROR,
+	LOGOUT_REQUEST,
+	LOGOUT_ERROR,
 } from '../actions/auth';
 
 const initialState: TAuthReducerState = {
@@ -15,12 +19,6 @@ const initialState: TAuthReducerState = {
 	error: '',
 };
 
-export type TAuthReducerAction = {
-	type: string;
-	user: TUserInfo;
-	error?: string;
-};
-
 type TAuthReducerState = {
 	isLoginChecked: boolean;
 	isAuthorized: boolean;
@@ -29,9 +27,61 @@ type TAuthReducerState = {
 	error?: string;
 };
 
+type TLoginRequestAction = {
+	readonly type: typeof LOGIN_REQUEST;
+};
+
+type TLoginErrorAction = {
+	readonly type: typeof LOGIN_ERROR;
+	readonly error?: unknown;
+};
+
+type TLoginAction = {
+	readonly type: typeof LOGIN;
+	readonly user: TUserInfo;
+};
+
+type TUpdateUserAction = {
+	readonly type: typeof UPDATE_USER_REQUEST;
+};
+
+type TUpdateUserErrorAction = {
+	readonly type: typeof UPDATE_USER_ERROR;
+	readonly error?: unknown;
+};
+
+type TUpdateUserSuccessAction = {
+	readonly type: typeof UPDATE_USER_SUCCESS;
+	readonly user: TUserInfo;
+};
+
+type TLogoutAction = {
+	readonly type: typeof LOGOUT;
+};
+
+type TLogoutRequestAction = {
+	readonly type: typeof LOGOUT_REQUEST;
+};
+
+type TLogoutErrorAction = {
+	readonly type: typeof LOGOUT_ERROR;
+	readonly error?: unknown;
+};
+
+export type TAuthActions =
+	| TLoginRequestAction
+	| TLoginErrorAction
+	| TLoginAction
+	| TUpdateUserAction
+	| TUpdateUserErrorAction
+	| TUpdateUserSuccessAction
+	| TLogoutAction
+	| TLogoutErrorAction
+	| TLogoutRequestAction;
+
 export const authReducer = (
 	state = initialState,
-	action: TAuthReducerAction
+	action: TAuthActions
 ): TAuthReducerState => {
 	switch (action.type) {
 		case LOGIN_REQUEST: {
@@ -47,7 +97,7 @@ export const authReducer = (
 				isLoginChecked: true,
 				email: '',
 				name: '',
-				error: action.error,
+				error: action.error as string,
 			};
 		}
 		case LOGIN: {
@@ -69,6 +119,18 @@ export const authReducer = (
 		}
 		case LOGOUT: {
 			return { ...initialState };
+		}
+		case UPDATE_USER_ERROR: {
+			return {
+				...state,
+				error: action.error as string,
+			};
+		}
+		case LOGOUT_ERROR: {
+			return {
+				...state,
+				error: action.error as string,
+			};
 		}
 		default: {
 			return state;

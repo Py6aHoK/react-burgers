@@ -30,6 +30,8 @@ import {
 	TLogoutDto,
 	TRefreshTokenParams,
 	TRefreshTokenDto,
+	TSendGetOrderInfoArgs,
+	TSendGetOrderInfoDto,
 } from './types';
 import { getCookie } from './auth';
 
@@ -78,7 +80,14 @@ export async function sendOrderRequest(
 ): Promise<TSendOrderDto> {
 	const endpoint: string = ORDERS_ENPOINT;
 	const body: string = JSON.stringify(params);
-	return sendRequest<TSendOrderDto>(endpoint, HTTPMethods.POST, body);
+	return sendAuthRequest<TSendOrderDto>(endpoint, HTTPMethods.POST, body);
+}
+
+export async function sendGetOrderInfoRequest(
+	params: TSendGetOrderInfoArgs
+): Promise<TSendGetOrderInfoDto> {
+	const endpoint: string = `${ORDERS_ENPOINT}/${params.id}`;
+	return sendRequest<TSendGetOrderInfoDto>(endpoint, HTTPMethods.GET);
 }
 
 export async function sendGetUserRequest(): Promise<TGetUserDto> {

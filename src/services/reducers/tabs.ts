@@ -16,13 +16,26 @@ type TTabsReducerState = {
 	isSauceActive: boolean;
 };
 
-type TTabsReducerAction = {
-	type: string;
+type TSetBunActiveAction = {
+	readonly type: typeof SET_BUN_ACTIVE;
 };
+
+type TSetMainActiveAction = {
+	readonly type: typeof SET_MAIN_ACTIVE;
+};
+
+type TSetSauceActiveAction = {
+	readonly type: typeof SET_SAUCE_ACTIVE;
+};
+
+export type TTabsActions =
+	| TSetBunActiveAction
+	| TSetMainActiveAction
+	| TSetSauceActiveAction;
 
 export const tabsReducer = (
 	state = initialState,
-	action: TTabsReducerAction
+	action: TTabsActions
 ): TTabsReducerState => {
 	switch (action.type) {
 		case SET_BUN_ACTIVE: {

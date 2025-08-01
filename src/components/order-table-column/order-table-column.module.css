@@ -1,0 +1,15 @@
+.column {
+	width: 272px;
+}
+
+.content {
+	display: flex;
+	gap: 12px;
+	overflow-y: hidden;
+}
+
+.box {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}

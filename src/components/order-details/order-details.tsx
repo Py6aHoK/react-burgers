@@ -13,7 +13,9 @@ export const OrderDetails = ({
 
 	return (
 		<div className={`${styles.order_details} text text_type_main-default`}>
-			<span className='text_type_digits-large mb-8'>{orderId}</span>
+			<span className='text_type_digits-large mb-8'>
+				{orderId.toString().padStart(6, '0')}
+			</span>
 			<span className='text_type_main-medium mb-15'>идентификатор заказа</span>
 			<img className='mb-15' src={checkMarkImage} alt={orderStatusText} />
 			<span className='mb-2'>{orderStatusText}</span>
