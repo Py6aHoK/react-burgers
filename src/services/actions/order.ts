@@ -15,6 +15,8 @@ export const CLOSE_ORDER_MODAL = 'CLOSE_ORDER_MODAL' as const;
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST' as const;
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS' as const;
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED' as const;
+export const OPEN_ORDER_DETAILS_MODAL = 'OPEN_ORDER_DETAILS_MODAL' as const;
+export const CLOSE_ORDER_DETAILS_MODAL = 'CLOSE_ORDER_DETAILS_MODAL' as const;
 
 export const sendOrder =
 	(ingredients: TSendOrderArgs) => async (dispatch: AppDispatch) => {
