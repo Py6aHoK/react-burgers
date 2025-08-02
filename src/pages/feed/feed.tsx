@@ -1,6 +1,6 @@
 import { Preloader } from '@/components/preloader/preloader';
 import {
-	SOCKET_CONNECTION_CLOSED,
+	SOCKET_CONNECTION_CLOSE,
 	SOCKET_CONNECTION_START,
 } from '@/services/actions/socket';
 import { useAppDispatch, useAppSelector } from '@/utils/hooks';
@@ -20,7 +20,7 @@ export const FeedPage = (): React.JSX.Element => {
 	useEffect(() => {
 		dispatch({ type: SOCKET_CONNECTION_START });
 		return () => {
-			dispatch({ type: SOCKET_CONNECTION_CLOSED });
+			dispatch({ type: SOCKET_CONNECTION_CLOSE });
 		};
 	}, [dispatch]);
 

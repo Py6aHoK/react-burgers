@@ -58,9 +58,11 @@ export const DndConstructorElement = (
 				{...otherProps}
 				type={type}
 				text={text + suffix}
-				handleClose={() =>
-					dispatch({ type: DELETE_INGREDIENT, actoion: { index } })
-				}
+				handleClose={() => {
+					if (index !== undefined) {
+						dispatch({ type: DELETE_INGREDIENT, index });
+					}
+				}}
 			/>
 		</div>
 	);

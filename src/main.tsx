@@ -8,23 +8,13 @@ import { thunk } from 'redux-thunk';
 import { socketMiddleware } from './services/middleware/socketMiddleware';
 import { SocketPublicActions } from './services/reducers/socket';
 import { SocketPersonalActions } from './services/reducers/socketPersonal';
-import { getCookie } from './utils/auth';
-import { WEB_SOCKET_URL } from './utils/constants';
-
-function getSocketUrl(isPersonal: boolean = false): string {
-	if (isPersonal) {
-		const token: string = getCookie('token') ?? '';
-		return `${WEB_SOCKET_URL}/?token=${token}`;
-	}
-	return `${WEB_SOCKET_URL}/all`;
-}
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(
 	applyMiddleware(
 		thunk,
-		socketMiddleware(getSocketUrl(), SocketPublicActions),
-		socketMiddleware(getSocketUrl(true), SocketPersonalActions)
+		socketMiddleware(SocketPublicActions),
+		socketMiddleware(SocketPersonalActions)
 	)
 );
 

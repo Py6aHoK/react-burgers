@@ -6,7 +6,7 @@ import { Preloader } from '@/components/preloader/preloader';
 import { Outlet } from 'react-router-dom';
 import { FeedOrder } from '@/components/feed-order/feed-order';
 import {
-	SOCKET_PERSONAL_CONNECTION_CLOSED,
+	SOCKET_PERSONAL_CONNECTION_CLOSE,
 	SOCKET_PERSONAL_CONNECTION_START,
 } from '@/services/actions/socketPersonal';
 
@@ -17,7 +17,7 @@ export const OrdersPage = (): React.JSX.Element => {
 	useEffect(() => {
 		dispatch({ type: SOCKET_PERSONAL_CONNECTION_START });
 		return () => {
-			dispatch({ type: SOCKET_PERSONAL_CONNECTION_CLOSED });
+			dispatch({ type: SOCKET_PERSONAL_CONNECTION_CLOSE });
 		};
 	}, [dispatch]);
 
