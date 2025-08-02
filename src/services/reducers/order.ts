@@ -8,6 +8,8 @@ import {
 	GET_ORDER_REQUEST,
 	GET_ORDER_SUCCESS,
 	GET_ORDER_FAILED,
+	OPEN_ORDER_DETAILS_MODAL,
+	CLOSE_ORDER_DETAILS_MODAL,
 } from '../actions/order';
 
 export const orderInitialState: TOrderReducerState = {
@@ -18,6 +20,7 @@ export const orderInitialState: TOrderReducerState = {
 	getOrderRequest: false,
 	getOrderRequestError: false,
 	orderInfo: undefined,
+	modalObject: undefined,
 };
 
 type TOrderReducerState = {
@@ -28,6 +31,7 @@ type TOrderReducerState = {
 	getOrderRequest: boolean;
 	getOrderRequestError: boolean;
 	orderInfo?: TOrderInfo;
+	modalObject?: TOrderInfo;
 };
 
 type TSendOrderAction = {
@@ -51,6 +55,15 @@ type TCloseOrderModalAction = {
 	readonly type: typeof CLOSE_ORDER_MODAL;
 };
 
+type TOpenOrderDetailsModalAction = {
+	readonly type: typeof OPEN_ORDER_DETAILS_MODAL;
+	readonly object: TOrderInfo;
+};
+
+type TCloseOrderDetailsModalAction = {
+	readonly type: typeof CLOSE_ORDER_DETAILS_MODAL;
+};
+
 type TGetOrderAction = {
 	readonly type: typeof GET_ORDER_REQUEST;
 };
@@ -70,6 +83,8 @@ export type TOrderActions =
 	| TSendOrderErrorAction
 	| TOpenOrderModalAction
 	| TCloseOrderModalAction
+	| TOpenOrderDetailsModalAction
+	| TCloseOrderDetailsModalAction
 	| TGetOrderAction
 	| TGetOrderSuccessAction
 	| TGetOrderErrorAction;
@@ -109,6 +124,18 @@ export const orderReducer = (
 			return {
 				...state,
 				isModalOpen: false,
+			};
+		}
+		case OPEN_ORDER_DETAILS_MODAL: {
+			return {
+				...state,
+				modalObject: action.object,
+			};
+		}
+		case CLOSE_ORDER_DETAILS_MODAL: {
+			return {
+				...state,
+				modalObject: undefined,
 			};
 		}
 		case GET_ORDER_REQUEST: {

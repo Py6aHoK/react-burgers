@@ -1,4 +1,4 @@
-import { getOrder } from '@/services/actions/order';
+import { CLOSE_ORDER_DETAILS_MODAL, getOrder } from '@/services/actions/order';
 import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 import { useCallback, useEffect, useState } from 'react';
 import {
@@ -13,13 +13,15 @@ import { Status } from '../status/status';
 import { IngredientsList } from '../ingredients-list/ingredients-list';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Price } from '../price/price';
-import { TIngredient } from '@/utils/types';
+import { TIngredient, TOrderInfo } from '@/utils/types';
 import { useOrderInfo } from '@/utils/order';
 import styles from './order-page.module.css';
 
 export const OrderPage = (): React.JSX.Element => {
 	const navigate: NavigateFunction = useNavigate();
-	const { orderInfo, getOrderRequest } = useAppSelector((state) => state.order);
+	const { orderInfo, modalObject, getOrderRequest } = useAppSelector(
+		(state) => state.order
+	);
 	const dispatch = useAppDispatch();
 	const { id } = useParams<string>();
 	const { getIngredients, getPrice } = useOrderInfo();
@@ -27,28 +29,35 @@ export const OrderPage = (): React.JSX.Element => {
 	const [price, setPrice] = useState<number>(0);
 	const location = useLocation();
 	const [number, setNumber] = useState<string | undefined>();
+	const [detailsObject, setDetailsObject] = useState<TOrderInfo | undefined>();
 
 	useEffect((): void => {
-		if (id) {
+		if (!modalObject && id) {
 			dispatch(getOrder(id));
 		}
-	}, [dispatch, id]);
+	}, [dispatch, id, modalObject]);
 
 	const handleCloseModal = useCallback(() => {
+		dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
 		void navigate(location.pathname.split('/').slice(0, -1).join('/'));
 	}, [navigate]);
 
 	useEffect((): void => {
-		if (!orderInfo) {
+		const data: TOrderInfo | undefined = modalObject || orderInfo;
+		setDetailsObject(data);
+	}, [dispatch, orderInfo, modalObject]);
+
+	useEffect(() => {
+		if (!detailsObject) {
 			return;
 		}
 		const orderIngredients: TIngredient[] = getIngredients(
-			orderInfo.ingredients
+			detailsObject.ingredients
 		);
 		setIngredients(orderIngredients);
 		setPrice(getPrice(orderIngredients));
-		setNumber('#' + orderInfo.number.toString().padStart(6, '0'));
-	}, [dispatch, orderInfo]);
+		setNumber('#' + detailsObject.number.toString().padStart(6, '0'));
+	}, [detailsObject]);
 
 	return (
 		<Modal
@@ -60,16 +69,16 @@ export const OrderPage = (): React.JSX.Element => {
 			closeHandler={handleCloseModal}>
 			{getOrderRequest ? (
 				<Preloader />
-			) : orderInfo ? (
+			) : detailsObject ? (
 				<div className={`${styles.order} mt-10`}>
-					<div className='text_type_main-medium mb-3'>{orderInfo.name}</div>
-					<Status className='mb-15' status={orderInfo.status} />
+					<div className='text_type_main-medium mb-3'>{detailsObject.name}</div>
+					<Status className='mb-15' status={detailsObject.status} />
 					<div className='text_type_main-medium mb-6'>Состав:</div>
 					<IngredientsList ingredients={currentIngredients} />
 					<div className={styles.info}>
-						{orderInfo && (
+						{detailsObject && (
 							<FormattedDate
-								date={new Date(orderInfo.createdAt)}
+								date={new Date(detailsObject.createdAt)}
 								className='text_type_main-default text_color_inactive mt-10'
 							/>
 						)}
