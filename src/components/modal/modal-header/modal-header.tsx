@@ -1,9 +1,9 @@
 import styles from './modal-header.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 type TModalHeader = {
-	title?: string;
+	title?: string | ReactElement;
 	onClose: () => void;
 };
 

@@ -51,30 +51,34 @@ export const OrderPage = (): React.JSX.Element => {
 	}, [dispatch, orderInfo]);
 
 	return (
-		<>
-			<Modal title={number} closeHandler={handleCloseModal}>
-				{getOrderRequest ? (
-					<Preloader />
-				) : orderInfo ? (
-					<div className={`${styles.order} mt-10`}>
-						<div className='text_type_main-medium mb-3'>{orderInfo.name}</div>
-						<Status className='mb-15' status={orderInfo.status} />
-						<div className='text_type_main-medium mb-6'>Состав:</div>
-						<IngredientsList ingredients={currentIngredients} />
-						<div className={styles.info}>
-							{orderInfo && (
-								<FormattedDate
-									date={new Date(orderInfo.createdAt)}
-									className='text_type_main-default text_color_inactive mt-10'
-								/>
-							)}
-							<Price>{price}</Price>
-						</div>
+		<Modal
+			title={
+				number ? (
+					<span className='text_type_digits-medium'>{number}</span>
+				) : undefined
+			}
+			closeHandler={handleCloseModal}>
+			{getOrderRequest ? (
+				<Preloader />
+			) : orderInfo ? (
+				<div className={`${styles.order} mt-10`}>
+					<div className='text_type_main-medium mb-3'>{orderInfo.name}</div>
+					<Status className='mb-15' status={orderInfo.status} />
+					<div className='text_type_main-medium mb-6'>Состав:</div>
+					<IngredientsList ingredients={currentIngredients} />
+					<div className={styles.info}>
+						{orderInfo && (
+							<FormattedDate
+								date={new Date(orderInfo.createdAt)}
+								className='text_type_main-default text_color_inactive mt-10'
+							/>
+						)}
+						<Price>{price}</Price>
 					</div>
-				) : (
-					<>Ошибка получения данных</>
-				)}
-			</Modal>
-		</>
+				</div>
+			) : (
+				<>Ошибка получения данных</>
+			)}
+		</Modal>
 	);
 };
