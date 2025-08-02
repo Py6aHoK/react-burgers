@@ -4,6 +4,8 @@ import {
 	SEND_ORDER_ERROR,
 	OPEN_ORDER_MODAL,
 	CLOSE_ORDER_MODAL,
+	OPEN_ORDER_DETAILS_MODAL,
+	CLOSE_ORDER_DETAILS_MODAL,
 	GET_ORDER_REQUEST,
 	GET_ORDER_SUCCESS,
 	GET_ORDER_FAILED,
@@ -66,6 +68,21 @@ describe('orderReducer', () => {
 			action
 		);
 		expect(state.isModalOpen).toBe(false);
+	});
+
+	it('Обработка OPEN_ORDER_DETAILS_MODAL', () => {
+		const action = { type: OPEN_ORDER_DETAILS_MODAL, object: mockOrderInfo };
+		const state = orderReducer({ ...orderInitialState }, action);
+		expect(state.modalObject).toEqual(mockOrderInfo);
+	});
+
+	it('Обработка CLOSE_ORDER_DETAILS_MODAL', () => {
+		const action = { type: CLOSE_ORDER_DETAILS_MODAL };
+		const state = orderReducer(
+			{ ...orderInitialState, modalObject: undefined },
+			action
+		);
+		expect(state.modalObject).toBeUndefined();
 	});
 
 	it('Обработка GET_ORDER_REQUEST', () => {
