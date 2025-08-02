@@ -1,10 +1,15 @@
 .order {
 	display: flex;
 	flex-direction: column;
+	align-self: center;
 }
 
 .info {
 	display: flex;
 	justify-content: space-between;
 	align-items: baseline;
+}
+
+.name {
+	align-self: center;
 }

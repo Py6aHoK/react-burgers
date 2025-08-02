@@ -101,7 +101,9 @@ export const socketPersonalReducer = (
 			return {
 				...state,
 				error: undefined,
-				orders: action.payload.orders,
+				orders: action.payload.orders.sort((a, b) =>
+					new Date(a.createdAt) > new Date(b.createdAt) ? -1 : 1
+				),
 			};
 		default:
 			return state;

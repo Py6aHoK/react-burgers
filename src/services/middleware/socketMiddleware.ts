@@ -1,4 +1,6 @@
 import { RootState } from '@/main';
+import { getCookie } from '@/utils/auth';
+import { WEB_SOCKET_URL } from '@/utils/constants';
 import {
 	AppActions,
 	AppDispatch,
@@ -6,11 +8,18 @@ import {
 	TWSocketActions,
 } from '@/utils/types';
 import { Middleware, MiddlewareAPI } from 'redux';
+import { SOCKET_PERSONAL_CONNECTION_START } from '../actions/socketPersonal';
+import { getUser } from '../actions/auth';
 
-export const socketMiddleware = (
-	url: string,
-	actions: TWSocketActions
-): Middleware => {
+function getSocketUrl(isPersonal: boolean = false): string {
+	if (isPersonal) {
+		const token: string = getCookie('token') ?? '';
+		return `${WEB_SOCKET_URL}?token=${token}`;
+	}
+	return `${WEB_SOCKET_URL}/all`;
+}
+
+export const socketMiddleware = (actions: TWSocketActions): Middleware => {
 	return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
 		const { wsInit, wsClose, onOpen, onClose, onError, onMessage } = actions;
 		let socket: Nullable<WebSocket> = null;
@@ -19,6 +28,9 @@ export const socketMiddleware = (
 			const { dispatch } = store;
 
 			if (action.type === wsInit) {
+				const url: string = getSocketUrl(
+					wsInit === SOCKET_PERSONAL_CONNECTION_START
+				);
 				socket = new WebSocket(url);
 			}
 			if (socket && action.type === wsClose) {
@@ -35,7 +47,14 @@ export const socketMiddleware = (
 					const { data } = event;
 					const parsedData = JSON.parse(data);
 					const { success, ...restParsedData } = parsedData; // eslint-disable-line @typescript-eslint/no-unused-vars
-					dispatch({ type: onMessage, payload: { ...restParsedData } });
+					if (!success) {
+						dispatch({ type: onError, payload: { ...restParsedData } });
+						if (restParsedData.message === 'Invalid or missing token') {
+							dispatch(getUser());
+						}
+					} else {
+						dispatch({ type: onMessage, payload: { ...restParsedData } });
+					}
 				};
 			}
 			next(action);

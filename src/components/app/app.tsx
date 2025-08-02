@@ -33,7 +33,7 @@ export const App = (): React.JSX.Element => {
 					<Route path='/ingredients/:id' element={<IngredientPage />} />
 				</Route>
 				<Route path='/feed' element={<FeedPage />}>
-					<Route path='/feed/:id' element={<OrderPage />} />
+					<Route path=':id' element={<OrderPage />} />
 				</Route>
 				<Route path='/login' element={<LoginPage />} />
 				<Route path='/register' element={<RegisterPage />} />
@@ -43,8 +43,9 @@ export const App = (): React.JSX.Element => {
 					path='/profile'
 					element={<ProtectedRouteElement element={<ProfilePage />} />}>
 					<Route path='' element={<ProfileMain />} />
-					<Route path='orders' element={<OrdersPage />} />
-					<Route path='/profile/orders/:id' element={<OrderPage />} />
+					<Route path='orders' element={<OrdersPage />}>
+						<Route path=':id' element={<OrderPage />} />
+					</Route>
 				</Route>
 				<Route path='*' element={<NotFound404 />} />
 			</Routes>
