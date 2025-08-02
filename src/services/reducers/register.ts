@@ -4,7 +4,7 @@ import {
 	USER_REGISTRATION_SUCCESS,
 } from '../actions/register';
 
-const registrationState: TRegistrationReducerState = {
+export const registerInitialState: TRegistrationReducerState = {
 	registrationRequest: false,
 	registrationRequestFailed: false,
 	email: '',
@@ -43,7 +43,7 @@ export type TRegistrationActions =
 	| TUserRegistrationFailesAction;
 
 export const registrationReducer = (
-	state = registrationState,
+	state = registerInitialState,
 	action: TRegistrationActions
 ): TRegistrationReducerState => {
 	switch (action.type) {

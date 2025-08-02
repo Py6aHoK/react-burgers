@@ -33,6 +33,7 @@ export const Modal = ({
 	);
 
 	if (!container) return null;
+	console.log('aaa');
 
 	return createPortal(
 		<div className={styles.modal}>
@@ -41,7 +42,11 @@ export const Modal = ({
 				{title ? (
 					<ModalHeader title={title} onClose={closeHandler} />
 				) : (
-					<button className={styles.close_button} onClick={closeHandler}>
+					<button
+						id='modalCloseButton'
+						className={styles.close_button}
+						onClick={closeHandler}>
+						s
 						<CloseIcon type='primary' />
 					</button>
 				)}

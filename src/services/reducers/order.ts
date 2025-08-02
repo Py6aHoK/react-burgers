@@ -10,7 +10,7 @@ import {
 	GET_ORDER_FAILED,
 } from '../actions/order';
 
-const initialState: TOrderReducerState = {
+export const orderInitialState: TOrderReducerState = {
 	isModalOpen: false,
 	orderRequest: false,
 	orderRequestError: false,
@@ -75,7 +75,7 @@ export type TOrderActions =
 	| TGetOrderErrorAction;
 
 export const orderReducer = (
-	state = initialState,
+	state = orderInitialState,
 	action: TOrderActions
 ): TOrderReducerState => {
 	switch (action.type) {
@@ -95,7 +95,7 @@ export const orderReducer = (
 		}
 		case SEND_ORDER_ERROR: {
 			return {
-				...initialState,
+				...orderInitialState,
 				orderRequestError: true,
 			};
 		}

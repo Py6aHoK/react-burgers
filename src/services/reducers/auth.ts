@@ -11,7 +11,7 @@ import {
 	LOGOUT_ERROR,
 } from '../actions/auth';
 
-const initialState: TAuthReducerState = {
+export const authInitialState: TAuthReducerState = {
 	isLoginChecked: false,
 	isAuthorized: false,
 	email: '',
@@ -80,7 +80,7 @@ export type TAuthActions =
 	| TLogoutRequestAction;
 
 export const authReducer = (
-	state = initialState,
+	state = authInitialState,
 	action: TAuthActions
 ): TAuthReducerState => {
 	switch (action.type) {
@@ -118,7 +118,7 @@ export const authReducer = (
 			};
 		}
 		case LOGOUT: {
-			return { ...initialState };
+			return { ...authInitialState };
 		}
 		case UPDATE_USER_ERROR: {
 			return {

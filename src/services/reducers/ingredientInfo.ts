@@ -4,7 +4,7 @@ import {
 	CLOSE_INGREDIENTS_INFO,
 } from '../actions/ingredientInfo';
 
-const initialState: TIngredientInfoReducerState = {
+export const ingredientInfoInitialState: TIngredientInfoReducerState = {
 	selectedIngredient: null,
 };
 
@@ -26,7 +26,7 @@ export type TIngredientInfoActions =
 	| TCloseIngredientsInfoAction;
 
 export const ingredientInfoReducer = (
-	state = initialState,
+	state = ingredientInfoInitialState,
 	action: TIngredientInfoActions
 ): TIngredientInfoReducerState => {
 	switch (action.type) {

@@ -14,7 +14,10 @@ export const ModalHeader = ({
 	return (
 		<div className={styles.modal_header}>
 			<span className='text text_type_main-large'>{title}</span>
-			<button className={styles.close_button} onClick={onClose}>
+			<button
+				id='modalCloseButton'
+				className={styles.close_button}
+				onClick={onClose}>
 				<CloseIcon type='primary' />
 			</button>
 		</div>

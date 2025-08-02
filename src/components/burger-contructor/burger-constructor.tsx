@@ -85,7 +85,10 @@ export const BurgerConstructor = (): React.JSX.Element => {
 
 	return (
 		<>
-			<section ref={dropTarget} className={styles.burger_constructor}>
+			<section
+				id='burgerConstructor'
+				ref={dropTarget}
+				className={styles.burger_constructor}>
 				{bun ? (
 					<DndConstructorElement
 						className='mb-4'

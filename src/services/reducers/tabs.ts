@@ -4,7 +4,7 @@ import {
 	SET_SAUCE_ACTIVE,
 } from '../actions/tabs';
 
-const initialState: TTabsReducerState = {
+export const tabsInitialState: TTabsReducerState = {
 	isBunsActive: false,
 	isMainActive: false,
 	isSauceActive: false,
@@ -34,25 +34,25 @@ export type TTabsActions =
 	| TSetSauceActiveAction;
 
 export const tabsReducer = (
-	state = initialState,
+	state = tabsInitialState,
 	action: TTabsActions
 ): TTabsReducerState => {
 	switch (action.type) {
 		case SET_BUN_ACTIVE: {
 			return {
-				...initialState,
+				...tabsInitialState,
 				isBunsActive: true,
 			};
 		}
 		case SET_MAIN_ACTIVE: {
 			return {
-				...initialState,
+				...tabsInitialState,
 				isMainActive: true,
 			};
 		}
 		case SET_SAUCE_ACTIVE: {
 			return {
-				...initialState,
+				...tabsInitialState,
 				isSauceActive: true,
 			};
 		}

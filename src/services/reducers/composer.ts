@@ -7,7 +7,7 @@ import {
 	RESET,
 } from '../actions/composer';
 
-const initialState: TComposerReducerState = {
+export const composerInitialState: TComposerReducerState = {
 	fillingIngredients: [],
 	bun: null,
 	price: 0,
@@ -51,7 +51,7 @@ export type TComposerActions =
 	| TResetAction;
 
 export const composerReducer = (
-	state = initialState,
+	state = composerInitialState,
 	action: TComposerActions
 ): TComposerReducerState => {
 	switch (action.type) {
@@ -68,10 +68,11 @@ export const composerReducer = (
 			};
 		}
 		case DELETE_INGREDIENT: {
-			state.fillingIngredients.splice(action.index, 1);
 			return {
 				...state,
-				fillingIngredients: state.fillingIngredients,
+				fillingIngredients: state.fillingIngredients.filter(
+					(_, i) => i !== action.index
+				),
 			};
 		}
 		case SWAP_ITEMS: {
@@ -81,7 +82,7 @@ export const composerReducer = (
 			};
 		}
 		case RESET: {
-			return initialState;
+			return composerInitialState;
 		}
 		default: {
 			return state;
