@@ -8,7 +8,7 @@ import {
 	SOCKET_PERSONAL_CONNECTION_CLOSED,
 	SOCKET_PERSONAL_CONNECTION_CLOSE,
 } from '../actions/socketPersonal';
-import { initialState, TSocketState } from './socket';
+import { socketInitialState, TSocketState } from './socket';
 
 type TSocketPersonalConnectionStart = {
 	readonly type: typeof SOCKET_PERSONAL_CONNECTION_START;
@@ -66,7 +66,7 @@ export type TSocketPersonalActions =
 	| TSocketPersonalSendMessageAction;
 
 export const socketPersonalReducer = (
-	state = initialState,
+	state = socketInitialState,
 	action: TSocketPersonalActions
 ): TSocketState => {
 	switch (action.type) {

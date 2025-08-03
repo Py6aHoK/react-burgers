@@ -41,7 +41,10 @@ export const Modal = ({
 				{title ? (
 					<ModalHeader title={title} onClose={closeHandler} />
 				) : (
-					<button className={styles.close_button} onClick={closeHandler}>
+					<button
+						id='modalCloseButton'
+						className={styles.close_button}
+						onClick={closeHandler}>
 						<CloseIcon type='primary' />
 					</button>
 				)}

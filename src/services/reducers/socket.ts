@@ -17,7 +17,7 @@ export type TSocketState = {
 	error?: Event;
 };
 
-export const initialState: TSocketState = {
+export const socketInitialState: TSocketState = {
 	connected: false,
 	orders: [],
 	total: 0,
@@ -80,7 +80,7 @@ export type TSocketActions =
 	| TSocketSendMessageAction;
 
 export const socketReducer = (
-	state = initialState,
+	state = socketInitialState,
 	action: TSocketActions
 ): TSocketState => {
 	switch (action.type) {

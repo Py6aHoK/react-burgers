@@ -8,6 +8,8 @@ export default defineConfig({
 			// implement node event listeners here
 			on('file:preprocessor', vitePreprocessor());
 		},
+
+		testIsolation: false,
 	},
 
 	component: {

@@ -7,7 +7,7 @@ import {
 	RESET_PASSWORD_INIT_SUCCESS,
 } from '../actions/passwordReset';
 
-const initialState: TPasswordResetReducerState = {
+export const passwordResetInitialState: TPasswordResetReducerState = {
 	isInitRequest: false,
 	isInitRequested: false,
 	initError: '',
@@ -58,7 +58,7 @@ export type TPasswordResetActions =
 	| TResetPasswordCheckErrorAction;
 
 export const passwordResetReducer = (
-	state = initialState,
+	state = passwordResetInitialState,
 	action: TPasswordResetActions
 ): TPasswordResetReducerState => {
 	switch (action.type) {

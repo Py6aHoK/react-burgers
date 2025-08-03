@@ -7,7 +7,7 @@ import {
 } from '../actions/app';
 import { TIngredient } from '@/utils/types';
 
-const initialState: TAppReducerState = {
+export const appInitialState: TAppReducerState = {
 	ingredientsRequest: false,
 	ingredientsRequestError: false,
 	ingredients: [],
@@ -66,7 +66,7 @@ export type TAppActions =
 	| TDecreaseCounterAction;
 
 export const appReducer = (
-	state = initialState,
+	state = appInitialState,
 	action: TAppActions
 ): TAppReducerState => {
 	switch (action.type) {
@@ -86,7 +86,7 @@ export const appReducer = (
 		}
 		case GET_INGREDIENTS_ERROR: {
 			return {
-				...initialState,
+				...appInitialState,
 				ingredientsRequestError: true,
 			};
 		}
