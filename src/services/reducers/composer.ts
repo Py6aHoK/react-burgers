@@ -19,16 +19,40 @@ type TComposerReducerState = {
 	price: number;
 };
 
-type TComposerReducerAction = {
-	type: string;
-	ingredient: TIngredient;
-	index: number;
-	newarr: TIngredient[];
+type TAddBunAction = {
+	readonly type: typeof ADD_BUN;
+	readonly ingredient: TIngredient;
 };
+
+type TAddIngredientAction = {
+	readonly type: typeof ADD_INGREDIENT;
+	readonly ingredient: TIngredient;
+};
+
+type TDeleteIngredientAction = {
+	readonly type: typeof DELETE_INGREDIENT;
+	readonly index: number;
+};
+
+type TSwapItemsAction = {
+	readonly type: typeof SWAP_ITEMS;
+	readonly newarr: TIngredient[];
+};
+
+type TResetAction = {
+	readonly type: typeof RESET;
+};
+
+export type TComposerActions =
+	| TAddBunAction
+	| TAddIngredientAction
+	| TDeleteIngredientAction
+	| TSwapItemsAction
+	| TResetAction;
 
 export const composerReducer = (
 	state = initialState,
-	action: TComposerReducerAction
+	action: TComposerActions
 ): TComposerReducerState => {
 	switch (action.type) {
 		case ADD_BUN: {

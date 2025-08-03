@@ -8,9 +8,9 @@ import {
 } from '@/utils/types';
 import { LOGIN } from './auth';
 
-export const USER_REGISTRATION_REQUEST: string = 'USER_REGISTRATION_REQUEST';
-export const USER_REGISTRATION_SUCCESS: string = 'USER_REGISTRATION_SUCCESS';
-export const USER_REGISTRATION_FAILED: string = 'USER_REGISTRATION_FAILED';
+export const USER_REGISTRATION_REQUEST = 'USER_REGISTRATION_REQUEST' as const;
+export const USER_REGISTRATION_SUCCESS = 'USER_REGISTRATION_SUCCESS' as const;
+export const USER_REGISTRATION_FAILED = 'USER_REGISTRATION_FAILED' as const;
 
 export function register(data: TRegisterUserParams): TDispatchPropmiseVoid {
 	return async function (dispatch: AppDispatch) {

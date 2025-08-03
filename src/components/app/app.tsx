@@ -8,13 +8,15 @@ import { ResetPasswordPage } from '@/pages/reset-password/reset-password';
 import { NotFound404 } from '@/pages/not-found-404/not-found-404';
 import { LoginPage } from '@/pages/login/login';
 import { HomePage } from '@/pages/home/home';
-import { ProtectedRouteElement } from '../protected-route-element/protected-route-element';
+import { ProtectedRouteElement } from '@/components/protected-route-element/protected-route-element';
 import { IngredientPage } from '@/pages/ingredients/ingredients';
 import { ProfileMain } from '@/components/profile-main/profile-main';
-import { OrdersPage } from '../orders/orders';
+import { OrdersPage } from '@pages/orders/orders';
 import { useAppDispatch } from '@/utils/hooks';
 import { getIngredients } from '@/services/actions/app';
 import { AppDispatch } from '@/utils/types';
+import { FeedPage } from '@/pages/feed/feed';
+import { OrderPage } from '@/components/order-page/order-page';
 
 export const App = (): React.JSX.Element => {
 	const dispatch: AppDispatch = useAppDispatch();
@@ -30,6 +32,9 @@ export const App = (): React.JSX.Element => {
 				<Route path='/' element={<HomePage />}>
 					<Route path='/ingredients/:id' element={<IngredientPage />} />
 				</Route>
+				<Route path='/feed' element={<FeedPage />}>
+					<Route path=':id' element={<OrderPage />} />
+				</Route>
 				<Route path='/login' element={<LoginPage />} />
 				<Route path='/register' element={<RegisterPage />} />
 				<Route path='/forgot-password' element={<ForgotPasswordPage />} />
@@ -38,7 +43,9 @@ export const App = (): React.JSX.Element => {
 					path='/profile'
 					element={<ProtectedRouteElement element={<ProfilePage />} />}>
 					<Route path='' element={<ProfileMain />} />
-					<Route path='orders' element={<OrdersPage />} />
+					<Route path='orders' element={<OrdersPage />}>
+						<Route path=':id' element={<OrderPage />} />
+					</Route>
 				</Route>
 				<Route path='*' element={<NotFound404 />} />
 			</Routes>

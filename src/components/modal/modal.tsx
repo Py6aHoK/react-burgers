@@ -1,5 +1,5 @@
 import { ModalOverlay } from '@components/modal-overlay/modal-overlay.tsx';
-import React, { PropsWithChildren, useEffect } from 'react';
+import React, { PropsWithChildren, ReactElement, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './modal.module.css';
 import { ModalHeader } from '@components/modal/modal-header/modal-header.tsx';
@@ -7,7 +7,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Nullable } from '@/utils/types';
 
 type TModalProps = {
-	title?: string;
+	title?: string | ReactElement;
 	closeHandler: () => void;
 } & PropsWithChildren;
 

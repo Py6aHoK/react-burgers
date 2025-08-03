@@ -1,12 +1,22 @@
-import { sendOrderRequest } from '@/utils/network';
-import { TSendOrderDto, TSendOrderArgs, AppDispatch } from '@/utils/types';
+import { sendGetOrderInfoRequest, sendOrderRequest } from '@/utils/network';
+import {
+	TSendOrderDto,
+	TSendOrderArgs,
+	AppDispatch,
+	TSendGetOrderInfoDto,
+} from '@/utils/types';
 import { RESET } from './composer';
 
-export const SEND_ORDER_REQUEST: string = 'GET_ORDER_REQUEST';
-export const SEND_ORDER_SUCCESS: string = 'GET_ORDER_SUCCESS';
-export const SEND_ORDER_ERROR: string = 'SEND_ORDER_ERROR';
-export const OPEN_ORDER_MODAL: string = 'OPEN_ORDER_MODAL';
-export const CLOSE_ORDER_MODAL: string = 'CLOSE_ORDER_MODAL';
+export const SEND_ORDER_REQUEST = 'SEND_ORDER_REQUEST' as const;
+export const SEND_ORDER_SUCCESS = 'SEND_ORDER_SUCCESS' as const;
+export const SEND_ORDER_ERROR = 'SEND_ORDER_ERROR' as const;
+export const OPEN_ORDER_MODAL = 'OPEN_ORDER_MODAL' as const;
+export const CLOSE_ORDER_MODAL = 'CLOSE_ORDER_MODAL' as const;
+export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST' as const;
+export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS' as const;
+export const GET_ORDER_FAILED = 'GET_ORDER_FAILED' as const;
+export const OPEN_ORDER_DETAILS_MODAL = 'OPEN_ORDER_DETAILS_MODAL' as const;
+export const CLOSE_ORDER_DETAILS_MODAL = 'CLOSE_ORDER_DETAILS_MODAL' as const;
 
 export const sendOrder =
 	(ingredients: TSendOrderArgs) => async (dispatch: AppDispatch) => {
@@ -25,3 +35,20 @@ export const sendOrder =
 			dispatch({ type: SEND_ORDER_ERROR });
 		}
 	};
+
+export const getOrder = (id: string) => async (dispatch: AppDispatch) => {
+	dispatch({ type: GET_ORDER_REQUEST });
+	try {
+		const { orders }: TSendGetOrderInfoDto = await sendGetOrderInfoRequest({
+			id,
+		});
+		dispatch({
+			type: GET_ORDER_SUCCESS,
+			order: orders[0],
+		});
+	} catch {
+		dispatch({
+			type: GET_ORDER_FAILED,
+		});
+	}
+};

@@ -9,17 +9,16 @@ import {
 	TResetPasswordInitParams,
 } from '@/utils/types';
 
-export const RESET_PASSWORD_INIT_REQUEST: string =
-	'RESET_PASSWORD_INIT_REQUEST';
-export const RESET_PASSWORD_INIT_SUCCESS: string =
-	'RESET_PASSWORD_INIT_SUCCESS';
-export const RESET_PASSWORD_INIT_FAILED: string = 'RESET_PASSWORD_INIT_FAILED';
-export const RESET_PASSWORD_CHECK_REQUEST: string =
-	'RESET_PASSWORD_CHECK_REQUEST';
-export const RESET_PASSWORD_CHECK_SUCCESS: string =
-	'RESET_PASSWORD_CHECK_SUCCESS';
-export const RESET_PASSWORD_CHECK_FAILED: string =
-	'RESET_PASSWORD_CHECK_FAILED';
+export const RESET_PASSWORD_INIT_REQUEST =
+	'RESET_PASSWORD_INIT_REQUEST' as const;
+export const RESET_PASSWORD_INIT_SUCCESS =
+	'RESET_PASSWORD_INIT_SUCCESS' as const;
+export const RESET_PASSWORD_INIT_ERROR = 'RESET_PASSWORD_INIT_ERROR' as const;
+export const RESET_PASSWORD_CHECK_REQUEST =
+	'RESET_PASSWORD_CHECK_REQUEST' as const;
+export const RESET_PASSWORD_CHECK_SUCCESS =
+	'RESET_PASSWORD_CHECK_SUCCESS' as const;
+export const RESET_PASSWORD_CHECK_ERROR = 'RESET_PASSWORD_CHECK_ERROR' as const;
 
 export function resetPasswordInit(
 	data: TResetPasswordInitParams
@@ -31,7 +30,7 @@ export function resetPasswordInit(
 			await sendResetPasswordInitRequest(data);
 			dispatch({ type: RESET_PASSWORD_INIT_SUCCESS });
 		} catch (error) {
-			dispatch({ type: RESET_PASSWORD_INIT_FAILED, error });
+			dispatch({ type: RESET_PASSWORD_INIT_ERROR, error });
 		}
 	};
 }
@@ -46,7 +45,7 @@ export function resetPasswordCheck(
 			await sendResetPasswordCheckRequest(data);
 			dispatch({ type: RESET_PASSWORD_CHECK_SUCCESS });
 		} catch (error) {
-			dispatch({ type: RESET_PASSWORD_CHECK_FAILED, error });
+			dispatch({ type: RESET_PASSWORD_CHECK_ERROR, error });
 		}
 	};
 }

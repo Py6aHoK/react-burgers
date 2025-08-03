@@ -1,0 +1,27 @@
+.list {
+	max-height: 330px;
+	overflow-y: auto;
+}
+
+.image {
+	display: block;
+	width: 64px;
+	height: 64px;
+	background-color: var(--background-alt);
+	background-size: contain;
+	border-radius: 100%;
+}
+
+.item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.name {
+	flex-grow: 1;
+}
+
+.price {
+	display: flex;
+}

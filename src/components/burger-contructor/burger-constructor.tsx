@@ -31,7 +31,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
 			dispatch({ type: ADD_BUN, ingredient: item });
 
 			if (bun) {
-				dispatch({ type: DECREASE_COUNTER, itemId: bun });
+				dispatch({ type: DECREASE_COUNTER, itemId: bun._id });
 			}
 		} else {
 			dispatch(addIngridient(item));

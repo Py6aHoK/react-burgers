@@ -35,15 +35,39 @@ type TAppReducerState = {
 	ingredients: TIngredient[];
 };
 
-type TAppReducerAction = {
-	type: string;
-	itemId: string;
-	ingredients: TIngredient[];
+type TGetIngredientsAction = {
+	readonly type: typeof GET_INGREDIENTS_REQUEST;
 };
+
+type TGetIngredientsSuccessAction = {
+	readonly type: typeof GET_INGREDIENTS_SUCCESS;
+	readonly ingredients: TIngredient[];
+};
+
+type TGetIngredientsErrorAction = {
+	readonly type: typeof GET_INGREDIENTS_ERROR;
+};
+
+type TIncreaseCounterAction = {
+	readonly type: typeof INCREASE_COUNTER;
+	readonly itemId: string;
+};
+
+type TDecreaseCounterAction = {
+	readonly type: typeof DECREASE_COUNTER;
+	readonly itemId: string;
+};
+
+export type TAppActions =
+	| TGetIngredientsAction
+	| TGetIngredientsSuccessAction
+	| TGetIngredientsErrorAction
+	| TIncreaseCounterAction
+	| TDecreaseCounterAction;
 
 export const appReducer = (
 	state = initialState,
-	action: TAppReducerAction
+	action: TAppActions
 ): TAppReducerState => {
 	switch (action.type) {
 		case GET_INGREDIENTS_REQUEST: {

@@ -24,14 +24,27 @@ type TRegistrationReducerState = {
 	error: string;
 };
 
-type TRegistrationReducerAction = {
-	type: string;
-	error: string;
+type TUserRegistrationAction = {
+	readonly type: typeof USER_REGISTRATION_REQUEST;
 };
+
+type TUserRegistrationSuccessAction = {
+	readonly type: typeof USER_REGISTRATION_SUCCESS;
+};
+
+type TUserRegistrationFailesAction = {
+	readonly type: typeof USER_REGISTRATION_FAILED;
+	readonly error: unknown;
+};
+
+export type TRegistrationActions =
+	| TUserRegistrationAction
+	| TUserRegistrationSuccessAction
+	| TUserRegistrationFailesAction;
 
 export const registrationReducer = (
 	state = registrationState,
-	action: TRegistrationReducerAction
+	action: TRegistrationActions
 ): TRegistrationReducerState => {
 	switch (action.type) {
 		case USER_REGISTRATION_REQUEST: {
@@ -55,7 +68,7 @@ export const registrationReducer = (
 				...state,
 				registrationRequestFailed: true,
 				registrationRequest: false,
-				error: action.error,
+				error: action.error as string,
 			};
 		}
 		default: {

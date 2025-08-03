@@ -5,11 +5,11 @@ import {
 	TGetIngredientsDto,
 } from '@/utils/types';
 
-export const GET_INGREDIENTS_REQUEST: string = 'GET_INGREDIENTS_REQUEST';
-export const GET_INGREDIENTS_SUCCESS: string = 'GET_INGREDIENTS_SUCCESS';
-export const GET_INGREDIENTS_ERROR: string = 'GET_INGREDIENTS_ERROR';
-export const DECREASE_COUNTER: string = 'DECREASE_COUNTER';
-export const INCREASE_COUNTER: string = 'INCREASE_COUNTER';
+export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST' as const;
+export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS' as const;
+export const GET_INGREDIENTS_ERROR = 'GET_INGREDIENTS_ERROR' as const;
+export const INCREASE_COUNTER = 'INCREASE_COUNTER' as const;
+export const DECREASE_COUNTER = 'DECREASE_COUNTER' as const;
 
 export function getIngredients(): TDispatchPropmiseVoid {
 	return async function (dispatch: AppDispatch) {

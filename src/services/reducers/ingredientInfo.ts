@@ -12,14 +12,22 @@ type TIngredientInfoReducerState = {
 	selectedIngredient: Nullable<TIngredient>;
 };
 
-type TIngredientInfoReducerAction = {
-	type: string;
-	item: TIngredient;
+type TOpenIngredientsInfoAction = {
+	readonly type: typeof OPEN_INGREDIENTS_INFO;
+	readonly item: TIngredient;
 };
+
+type TCloseIngredientsInfoAction = {
+	readonly type: typeof CLOSE_INGREDIENTS_INFO;
+};
+
+export type TIngredientInfoActions =
+	| TOpenIngredientsInfoAction
+	| TCloseIngredientsInfoAction;
 
 export const ingredientInfoReducer = (
 	state = initialState,
-	action: TIngredientInfoReducerAction
+	action: TIngredientInfoActions
 ): TIngredientInfoReducerState => {
 	switch (action.type) {
 		case OPEN_INGREDIENTS_INFO: {

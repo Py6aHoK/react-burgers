@@ -1,0 +1,17 @@
+.feed {
+	display: flex;
+	flex-direction: column;
+	height: calc(100vh - 88px);
+	color: var(--text-primary-color);
+	background-color: var(--background-alt);
+}
+
+.orders {
+	max-width: 600px;
+	height: 100%;
+	overflow-y: scroll;
+}
+
+.table {
+	width: 600px;
+}

@@ -13,11 +13,10 @@ export const HomePage = (): React.JSX.Element => {
 
 	return (
 		<div className={styles.home}>
-			<h1
-				className={`${styles.title} text text_type_main-large mt-10 mb-5 pl-5`}>
+			<h1 className='page-title text text_type_main-large mt-10 mb-5 pl-5'>
 				Соберите бургер
 			</h1>
-			<main className={`${styles.main} text_type_main-default pl-5 pr-5 pb-10`}>
+			<main className='main text_type_main-default pl-5 pr-5 pb-10'>
 				{ingredientsRequest ? <Preloader /> : null}
 				{ingredientsRequestError ? <p>Ошибка получения данных</p> : null}
 				{!ingredientsRequest && ingredients.length > 0 ? (
